@@ -1,0 +1,21 @@
+services:
+  couchdb:
+    image: couchdb:latest
+    container_name: couchdb-distributed
+    ports:
+      - 5984:5984
+    environment:
+      - COUCHDB_USER=admin
+      - COUCHDB_PASSWORD=password1234
+      - COUCHDB_SECRET=secret1234
+    volumes:
+      - couchdb_data:/opt/couchdb/data
+    networks:
+      - db-network
+
+volumes:
+  couchdb_data:
+
+networks:
+  db-network:
+    driver: bridge

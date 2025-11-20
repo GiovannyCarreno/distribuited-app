@@ -1,0 +1,25 @@
+{
+  "name": "configurarnodos",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "nodemon server.js",
+    "setup": "node setup-pouchdb-inicial.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^17.2.3",
+    "express": "^5.1.0",
+    "node-fetch": "^2.7.0",
+    "pouchdb": "^9.0.0",
+    "pouchdb-find": "^9.0.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.10"
+  }
+}
