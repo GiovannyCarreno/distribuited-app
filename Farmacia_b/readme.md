@@ -1,19 +1,19 @@
-# 🏥 Sistema Multi-Sucursal con Vista Global
+# Sistema Multi-Sucursal con Vista Global
 
 Backend distribuido donde cada sucursal puede **ver en tiempo real** el stock y ventas de TODAS las demás sucursales, manteniendo su propia base de datos local con sincronización automática.
 
-## ✨ Características Revolucionarias
+## Características Revolucionarias
 
-- ✅ **Vista Global**: Consulta productos y ventas de TODAS las sucursales
-- ✅ **Réplica Automática**: Cada sucursal replica las BDs de las demás (READ-ONLY)
-- ✅ **Stock Consolidado**: Ve el stock total en toda la red
-- ✅ **Sincronización Inteligente**:
+- **Vista Global**: Consulta productos y ventas de TODAS las sucursales
+- **Réplica Automática**: Cada sucursal replica las BDs de las demás (READ-ONLY)
+- **Stock Consolidado**: Ve el stock total en toda la red
+- **Sincronización Inteligente**:
   - **Bidireccional**: Para tu sucursal (lectura/escritura)
   - **Unidireccional**: De otras sucursales (solo lectura)
-- ✅ **Sin Conflictos**: No puedes modificar datos de otras sucursales
-- ✅ **Tiempo Real**: Cambios en cualquier sucursal se replican automáticamente
+- **Sin Conflictos**: No puedes modificar datos de otras sucursales
+- **Tiempo Real**: Cambios en cualquier sucursal se replican automáticamente
 
-## 🏗️ Arquitectura Mejorada
+## Arquitectura Mejorada
 
 ```
 ┌─────────────────────────────────────────────────────────────┐
@@ -54,7 +54,7 @@ Ejemplo para **Sucursal A**:
 | `farmacia_c_productos_ventas` | **R** | Unidireccional FROM | Ver stock de Sucursal C |
 | `farmacias_clientes_proveedores` | **R/W** | Bidireccional | Clientes y proveedores compartidos |
 
-## 🚀 Instalación y Configuración
+## Instalación y Configuración
 
 ### Paso 1: Instalar Dependencias
 
@@ -112,7 +112,7 @@ SUCURSAL_ID=C npm run setup
 SUCURSAL_ID=C npm run dev
 ```
 
-## 📡 API Endpoints
+## API Endpoints
 
 ### Rutas Locales (Solo Esta Sucursal)
 
@@ -130,7 +130,7 @@ POST   /api/ventas              # Registrar venta aquí
 GET    /api/reportes/dashboard  # Dashboard de esta sucursal
 ```
 
-### 🌍 Rutas Globales (Todas las Sucursales) - NUEVO
+### Rutas Globales (Todas las Sucursales) - NUEVO
 
 Consultan datos de **TODAS las sucursales** de la red:
 
@@ -144,7 +144,7 @@ GET /api/global/ventas?inicio=X&fin=Y        # Ventas por rango
 GET /api/global/estadisticas                 # Dashboard consolidado
 ```
 
-## 🔥 Ejemplos de Uso
+## Ejemplos de Uso
 
 ### 1. Ver Productos de TODAS las Sucursales
 
@@ -434,7 +434,7 @@ curl http://localhost:3000/api/sync/status
 }
 ```
 
-## 🔐 Seguridad y Permisos
+## Seguridad y Permisos
 
 ### Reglas de Acceso
 
@@ -451,12 +451,12 @@ curl http://localhost:3000/api/sync/status
 
 ### Protecciones Automáticas
 
-- ✅ **No puedes modificar** datos de otras sucursales
-- ✅ **Sincronización unidireccional** (FROM) para otras sucursales
-- ✅ **Solo lectura** en réplicas de otras sucursales
-- ✅ **CouchDB maneja conflictos** automáticamente
+- **No puedes modificar** datos de otras sucursales
+- **Sincronización unidireccional** (FROM) para otras sucursales
+- **Solo lectura** en réplicas de otras sucursales
+- **CouchDB maneja conflictos** automáticamente
 
-## 📊 Casos de Uso Reales
+## Casos de Uso Reales
 
 ### Caso 1: Cliente Busca Producto Agotado
 
@@ -505,7 +505,7 @@ curl "http://localhost:3000/api/global/productos/search?nombre=paracetamol"
 
 Ve el inventario completo de todas las sucursales para planificación de compras.
 
-## 🔄 Flujo de Sincronización
+## Flujo de Sincronización
 
 ### Escenario: Venta en Sucursal A
 
@@ -514,7 +514,7 @@ Ve el inventario completo de todas las sucursales para planificación de compras
    └─> POST /api/ventas
 
 2. Se guarda en PouchDB local de Sucursal A
-   └─> Respuesta inmediata ⚡
+   └─> Respuesta inmediata 
 
 3. PouchDB sincroniza con CouchDB (automático)
    └─> Sync bidireccional de farmacia_a
@@ -537,7 +537,7 @@ watch -n 2 'curl -s http://localhost:3000/api/sync/status | jq'
 # Ver cambios en otras sucursales en tiempo real
 ```
 
-## 🐛 Troubleshooting
+## Troubleshooting
 
 ### Problema: No Veo Productos de Otras Sucursales
 
@@ -573,7 +573,7 @@ du -sh data/
 
 Los clientes están compartidos. Si dos sucursales editan el mismo cliente al mismo tiempo, CouchDB resuelve usando "last-write-wins".
 
-## ⚡ Optimizaciones
+## Optimizaciones
 
 ### 1. Caché de Consultas Globales
 
@@ -614,14 +614,14 @@ Si tienes muchas sucursales, puedes filtrar qué réplicas necesitas:
 const SUCURSALES_CERCANAS = process.env.SUCURSALES_CERCANAS || 'B,C';
 ```
 
-## 📈 Escalabilidad
+## Escalabilidad
 
 Este sistema escala bien hasta:
-- ✅ 10-20 sucursales sin problemas
-- ✅ 50-100 sucursales con optimizaciones
-- ✅ 100+ sucursales: considerar arquitectura hub-and-spoke
+- 10-20 sucursales sin problemas
+- 50-100 sucursales con optimizaciones
+- 100+ sucursales: considerar arquitectura hub-and-spoke
 
-## 🚀 Despliegue
+## Despliegue
 
 ### Docker Compose para 3 Sucursales
 
@@ -670,11 +670,3 @@ services:
 ```bash
 docker-compose up
 ```
-
-## 📄 Licencia
-
-MIT
-
----
-
-**🎉 ¡Ahora cada sucursal puede ver TODO en tiempo real sin perder autonomía!**

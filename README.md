@@ -1,20 +1,20 @@
-# 🏥 Sistema Distribuido Multi-Sucursal con CouchDB y PouchDB
+# Sistema Distribuido Multi-Sucursal con CouchDB y PouchDB
 
 Sistema de gestión farmacéutica distribuido donde cada sucursal mantiene su propia base de datos local con sincronización automática y **vista global en tiempo real** de todas las demás sucursales.
 
-## ✨ Características Principales
+## Características Principales
 
-- ✅ **Vista Global**: Consulta productos y ventas de TODAS las sucursales
-- ✅ **Réplica Automática**: Cada sucursal replica las BDs de las demás (READ-ONLY)
-- ✅ **Stock Consolidado**: Ve el stock total en toda la red
-- ✅ **Sincronización Inteligente**:
+- **Vista Global**: Consulta productos y ventas de TODAS las sucursales
+- **Réplica Automática**: Cada sucursal replica las BDs de las demás (READ-ONLY)
+- **Stock Consolidado**: Ve el stock total en toda la red
+- **Sincronización Inteligente**:
   - **Bidireccional**: Para tu sucursal (lectura/escritura)
   - **Unidireccional**: De otras sucursales (solo lectura)
-- ✅ **Sin Conflictos**: No puedes modificar datos de otras sucursales
-- ✅ **Tiempo Real**: Cambios en cualquier sucursal se replican automáticamente
-- ✅ **Servidor Central**: Monitoreo y administración centralizada del sistema
+- **Sin Conflictos**: No puedes modificar datos de otras sucursales
+- **Tiempo Real**: Cambios en cualquier sucursal se replican automáticamente
+- **Servidor Central**: Monitoreo y administración centralizada del sistema
 
-## 🗂️ Arquitectura del Sistema
+## Arquitectura del Sistema
 
 ```
 ┌──────────────────────────────────────────────────────────┐
@@ -62,20 +62,20 @@ Sistema de gestión farmacéutica distribuido donde cada sucursal mantiene su pr
 | `farmacia_c_productos_ventas` | **R** | Unidireccional FROM | Ver stock de Sucursal C |
 | `farmacias_clientes_proveedores` | **R/W** | Bidireccional | Clientes y proveedores compartidos |
 
-## 📋 Requisitos
+## Requisitos
 
 - **Node.js** (versión 16 o superior)
 - **npm** (incluido con Node.js)
 - **Docker** y **Docker Compose** (para CouchDB)
 
-## 🚀 Instalación
+## Instalación
 
 ### Paso 1: Clonar e Instalar Dependencias
 
 ```bash
 # Clonar el repositorio
-git clone <tu-repositorio>
-cd <carpeta-proyecto>
+git clone https://github.com/GiovannyCarreno/distribuited-app.git
+cd distribuited-app
 
 # Instalar dependencias
 npm install
@@ -164,7 +164,7 @@ SUCURSAL_ID=C npm run setup
 SUCURSAL_ID=C npm run dev
 ```
 
-## 📡 API Endpoints
+## API Endpoints
 
 ### Servidor Central
 
@@ -192,7 +192,7 @@ POST   /api/ventas              # Registrar venta aquí
 GET    /api/reportes/dashboard  # Dashboard de esta sucursal
 ```
 
-### 🌍 Sucursales - Rutas Globales
+### Sucursales - Rutas Globales
 
 Consultan datos de **TODAS las sucursales** de la red:
 
@@ -213,7 +213,7 @@ GET  /api/sync/status    # Ver estado de sincronización
 POST /api/sync/force     # Forzar sincronización manual
 ```
 
-## 🔥 Ejemplos de Uso
+## Ejemplos de Uso
 
 ### 1. Consultar Estado del Sistema (Central)
 
@@ -426,7 +426,7 @@ curl http://localhost:3010/api/sync/status
 }
 ```
 
-## 🔒 Seguridad y Permisos
+## Seguridad y Permisos
 
 ### Reglas de Acceso
 
@@ -443,12 +443,12 @@ curl http://localhost:3010/api/sync/status
 
 ### Protecciones Automáticas
 
-- ✅ **No puedes modificar** datos de otras sucursales
-- ✅ **Sincronización unidireccional** (FROM) para otras sucursales
-- ✅ **Solo lectura** en réplicas de otras sucursales
-- ✅ **CouchDB maneja conflictos** automáticamente
+- **No puedes modificar** datos de otras sucursales
+- **Sincronización unidireccional** (FROM) para otras sucursales
+- **Solo lectura** en réplicas de otras sucursales
+- **CouchDB maneja conflictos** automáticamente
 
-## 📊 Casos de Uso Reales
+## Casos de Uso Reales
 
 ### Caso 1: Cliente Busca Producto Agotado
 
@@ -491,7 +491,7 @@ curl "http://localhost:3010/api/global/productos/search?nombre=paracetamol"
 
 Útil para planificación de compras y redistribución de inventario.
 
-## 🔄 Flujo de Sincronización
+## Flujo de Sincronización
 
 ### Escenario: Venta en Sucursal A
 
@@ -500,7 +500,7 @@ curl "http://localhost:3010/api/global/productos/search?nombre=paracetamol"
    └─> POST /api/ventas
 
 2. Se guarda en PouchDB local de Sucursal A
-   └─> Respuesta inmediata ⚡
+   └─> Respuesta inmediata
 
 3. PouchDB sincroniza con CouchDB (automático)
    └─> Sync bidireccional de farmacia_a
@@ -516,7 +516,7 @@ curl "http://localhost:3010/api/global/productos/search?nombre=paracetamol"
 Tiempo total: < 1 segundo
 ```
 
-## 🏗️ Estructura del Proyecto
+## Estructura del Proyecto
 
 ```
 proyecto/
@@ -583,7 +583,7 @@ curl -X PUT http://admin:password1234@localhost:5984/farmacia_a_productos_ventas
 curl -X PUT http://admin:password1234@localhost:5984/farmacias_clientes_proveedores
 ```
 
-## ⚡ Optimizaciones
+## Optimizaciones
 
 ### 1. Caché de Consultas Globales
 
@@ -610,14 +610,14 @@ Para redes grandes (50+ sucursales), configurar solo réplicas necesarias:
 SUCURSALES_CERCANAS=B,C
 ```
 
-## 📈 Escalabilidad
+## Escalabilidad
 
 Este sistema escala bien para:
-- ✅ **10-20 sucursales**: Sin problemas
-- ✅ **50-100 sucursales**: Con optimizaciones (caché, índices)
-- ✅ **100+ sucursales**: Considerar arquitectura hub-and-spoke
+- **10-20 sucursales**: Sin problemas
+- **50-100 sucursales**: Con optimizaciones (caché, índices)
+- **100+ sucursales**: Considerar arquitectura hub-and-spoke
 
-## 🐳 Despliegue con Docker
+## Despliegue con Docker
 
 ### Docker Compose Completo
 
@@ -689,7 +689,7 @@ volumes:
 docker-compose up -d
 ```
 
-## 📚 Scripts Disponibles
+## Scripts Disponibles
 
 ```json
 {
@@ -702,7 +702,7 @@ docker-compose up -d
 }
 ```
 
-## 🔐 Configuración de Seguridad
+## Configuración de Seguridad
 
 ### Producción
 
@@ -715,37 +715,13 @@ COUCHDB_PASSWORD=<contraseña-fuerte>
 COUCHDB_HOST=couchdb.tudominio.com:5984
 ```
 
-### HTTPS
-
-Configurar reverse proxy (Nginx/Caddy) para HTTPS:
-
-```nginx
-server {
-    listen 443 ssl;
-    server_name api.tudominio.com;
-    
-    ssl_certificate /path/to/cert.pem;
-    ssl_certificate_key /path/to/key.pem;
-    
-    location / {
-        proxy_pass http://localhost:3000;
-    }
-}
-```
-
-## 📄 Licencia
-
-MIT
-
----
-
-## 🎉 ¡Listo!
+## ¡Listo!
 
 Ahora tienes un sistema distribuido completo donde:
-- ✅ Cada sucursal mantiene autonomía con su BD local
-- ✅ Todas pueden ver el inventario completo de la red en tiempo real
-- ✅ El servidor central monitorea y administra todo el sistema
-- ✅ La sincronización es automática y transparente
-- ✅ Sin conflictos gracias a permisos bien definidos
+- Cada sucursal mantiene autonomía con su BD local
+- Todas pueden ver el inventario completo de la red en tiempo real
+- El servidor central monitorea y administra todo el sistema
+- La sincronización es automática y transparente
+- Sin conflictos gracias a permisos bien definidos
 
 **¿Preguntas?** Revisa la documentación de [CouchDB](https://docs.couchdb.org/) y [PouchDB](https://pouchdb.com/)
